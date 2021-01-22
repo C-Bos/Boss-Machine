@@ -9,9 +9,11 @@ module.exports = app;
 */
 const PORT = process.env.PORT || 4001;
 
+
 // Add middleware for handling CORS requests from index.html
 const cors = require('cors');
 app.use(cors());
+app.use(express.static('public'));
 app.get('/', (req, res)=> {
   return res.sendFile(path.join(__dirname + '/index.html' ))
 });
