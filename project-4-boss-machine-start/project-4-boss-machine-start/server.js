@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 module.exports = app;
 
@@ -11,8 +12,8 @@ const PORT = process.env.PORT || 4001;
 // Add middleware for handling CORS requests from index.html
 const cors = require('cors');
 app.use(cors());
-app.get('/', (req, res, next)=>{
-
+app.get('/', (req, res)=> {
+  return res.sendFile(path.join(__dirname + '/index.html' ))
 });
  
 // Add middware for parsing request bodies here:
