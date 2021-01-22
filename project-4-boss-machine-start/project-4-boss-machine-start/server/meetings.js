@@ -1,5 +1,7 @@
 const meetingsRouter = require('express').Router();
 
+module.exports = meetingsRouter;
+
 const { 
     getAllFromDatabase,
     addToDatabase,
@@ -25,5 +27,3 @@ meetingsRouter.delete('/', (req, res, next) => {
     deleteAllFromDatabase('meetings');
     res.status(204).send();
 });
-
-module.exports = meetingsRouter;

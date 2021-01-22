@@ -1,5 +1,7 @@
 const ideasRouter = require('express').Router();
 
+module.exports = ideasRouter;
+
 const { 
     addToDatabase,
     getAllFromDatabase,
@@ -53,4 +55,3 @@ ideasRouter.delete('/:ideaId', (req, res, next) => {
     res.send();
   });
 
-module.exports = ideasRouter;

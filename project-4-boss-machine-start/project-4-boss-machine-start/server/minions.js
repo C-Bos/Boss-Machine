@@ -1,5 +1,7 @@
 const minionsRouter = require('express').Router();
 
+module.exports = minionsRouter;
+
 const { 
     addToDatabase,
     getAllFromDatabase,
@@ -8,7 +10,7 @@ const {
     deleteFromDatabasebyId,
   } = require('./db');
 
-minionsRouter.param('minionId', (req, res, next) => {
+minionsRouter.param('minionId', (req, res, next, id) => {
     const minion = getFromDatabaseById('minions', id);
     if (minion) {
         req.minion = minion;
@@ -45,7 +47,7 @@ minionsRouter.put('/:minionId', (req, res, next) => {
 
 //     DELETE /api/minions/:minionId to delete a single minion by id.
 minionsRouter.delete('/:minionId', (req, res, next) => {
-    const successfullyDeleted = deleteFromDatabasebyId('minions', req.params.minionid);
+    const successfullyDeleted = deleteFromDatabasebyId('minions', req.params.minionId);
     if(successfullyDeleted) {
         res.status(204);
     } else {
@@ -54,4 +56,3 @@ minionsRouter.delete('/:minionId', (req, res, next) => {
     res.send();
   });
 
-module.exports = minionsRouter;
