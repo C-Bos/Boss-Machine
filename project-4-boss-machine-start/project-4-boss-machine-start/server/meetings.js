@@ -1,4 +1,4 @@
-const meetingsRouter = require('express').Router;
+const meetingsRouter = require('express').Router();
 
 const { 
     getAllFromDatabase,
