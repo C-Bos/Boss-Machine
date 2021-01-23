@@ -2,6 +2,7 @@ const ideasRouter = require('express').Router();
 
 module.exports = ideasRouter;
 
+const checkMillionDollarIdea = require('./checkMillionDollarIdea');
 const { 
     addToDatabase,
     getAllFromDatabase,
@@ -10,7 +11,7 @@ const {
     deleteFromDatabasebyId,
   } = require('./db');
 
-  ideasRouter.param('id', (req, res, next) => {
+  ideasRouter.param('ideaId', (req, res, next, id) => {
     const idea = getFromDatabaseById('ideas', id);
     if (idea) {
         req.idea = idea;
@@ -27,7 +28,7 @@ ideasRouter.get('/', (req, res, next) => {
 
 // POST /api/ideas to create a new idea and save it to the database.
 //For all /api/minions and /api/ideas routes, any POST or PUT requests will send their new/updated resources in the request body. POST request bodies will not have an id property, you will have to set it based on the next id in sequence.
-ideasRouter.post('/', (req, res, next) => {
+ideasRouter.post('/', checkMillionDollarIdea, (req, res, next) => {
     const newIdea = addToDatabase('ideas', req.body);
     res.status(201).send(newIdea);
 });
@@ -39,14 +40,14 @@ ideasRouter.get('/:ideaId', (req, res, next) => {
 
 // PUT /api/ideas/:ideaId to update a single idea by id.
 //For all /api/minions and /api/ideas routes, any POST or PUT requests will send their new/updated resources in the request body. POST request bodies will not have an id property, you will have to set it based on the next id in sequence.
-ideasRouter.put('/:ideaId', (req, res, next) => {
+ideasRouter.put('/:ideaId', checkMillionDollarIdea, (req, res, next) => {
     const updatedIdea = updateInstanceInDatabase('ideas', req.body);
     res.send(updatedIdea);
 });
 
 // DELETE /api/ideas/:ideaId to delete a single idea by id.
 ideasRouter.delete('/:ideaId', (req, res, next) => {
-    const successfullyDeleted = deleteFromDatabasebyId('ideas', req.params.id);
+    const successfullyDeleted = deleteFromDatabasebyId('ideas', req.params.ideaId);
     if(successfullyDeleted) {
         res.status(204);
     } else {
